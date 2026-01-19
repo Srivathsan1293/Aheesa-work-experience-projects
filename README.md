@@ -1,7 +1,7 @@
 This excel sheet uses mathematical formualae to implement a gradient descent algorithm. 
 The sheet is set up to calaculate the quadratic relationship between 3 points. 
 In the columns x & y. Enter values for 3 points. Drag the formualae down from columns C -> L one row.
-Then drag columns C -> O. The values of a,b & c are the coefficients of the quadratic equation in form 
+Then drag columns C -> O as required. The values of a,b & c are the coefficients of the quadratic equation in form 
 ax^2 + bx + c. If you want to add more points then the formulae need to adjusted but it will still be similar. 
 
 The system should be able to get multiple coordinates and still only give a quadratic output. To
