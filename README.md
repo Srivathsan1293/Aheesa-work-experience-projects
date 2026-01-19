@@ -1,4 +1,4 @@
-This assembly program is determines whether a number is prime or not. By checking whether it is divisble by 2 or by an odd number 
+This assembly program determines whether a number is prime or not. By checking whether it is divisble by 2 or by an odd number 
 until the number we are dividing by is more than the square root of the number we want to verify.
 
 The algorithm needs to be very efficient and should not take long to verify even very large prime numbers. 
