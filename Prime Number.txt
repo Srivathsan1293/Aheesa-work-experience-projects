@@ -1,0 +1,34 @@
+.macro prime input, answer
+#storing
+           Add x10, x10, x0	
+           Add sp, sp, -16
+           Sw t1, 0(sp)
+           Sw t2, 4(sp)
+           Sw t3, 8(sp)
+           Sw t4, 12(sp)
+            li t1, 2         	# setting it to 2
+	li t2, 3         	# starting number for loop
+	bltz \input, not_prime_\@ # check if negative
+	beq \input, t1, set_prime_\@ # check if it is 2; if so jump to set_prime to set \answer to 1
+	andi t3, \input, 1   # check if it is odd or even by checking the least significant bit
+	beq t3, x0, not_prime_\@ # if even, it's not prime
+Loop_\@: # start a loop from 3
+	rem t4, \input, t2   # check if the number divided by the counter is remainder 0
+	beqz t4, not_prime_\@   # jump to not_prime if REM = 0 not prime
+	mul t4, t2, t2   	# get counter squared
+	bgt t4, \input, set_prime_\@ # check if the counter squared is above the limit
+	addi t2, t2, 2   	# increment counter
+	j Loop_\@
+set_prime_\@:           	# set prime to 1
+	li \answer, 1
+	j end_prime_\@
+not_prime_\@:           	# set not prime to 0
+	li \answer, 0
+end_prime_\@:
+ #loading
+      lw t1 0(sp)
+      lw t2, 4(sp)
+      lw t3, 8(sp)
+      lw t3, 12(sp)
+     Add sp, sp, 16
+.endm
