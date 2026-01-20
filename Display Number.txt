@@ -1,0 +1,50 @@
+.macro displaynum num, buffer
+# This macro divides the number by 10 and stores the remainder in a buffer,
+# effectively storing the number in reverse order which can then be converted to ASCII later    
+#storing previous data in stack to be restored after program is finished
+	addi x10, x10, 0
+	addi sp, sp, -28
+	sw t2, 0(sp)
+	sw t4, 4(sp)
+	sw t1, 8(sp)
+	sw t6, 12(sp)
+	sw t5, 16(sp)
+	sw a3, 20(sp)
+	sw a2, 24(sp)
+#program    
+	li t2, 10
+	addi \buffer, \buffer, 35 # number can be 35 digits long
+	mv t4, \buffer
+           conversion_\@:
+	remu t1, \num, t2 #Remainder after dividing by 10
+	addi t1, t1, '0' #adding ASCII value of 0, to convert said number to correct ASCII code
+	addi \buffer, \buffer, -1 #storing digit at the top of stack
+	sb t1, 0(\buffer) #storing the remainder
+	divu \num, \num, t2 #perform integer division by 10, to move onto next number
+	bnez \num, conversion_\@ #if it is 0 we have reached last digit
+#Adds space between numbers 
+	addi t1, x0, 32  #ASCII code for space at the very top of stack for good presentation
+	addi \buffer, \buffer, -1
+	sb t1, 0(\buffer)
+#Sends characters to display same procedure displaymsg 
+	li t6, 0x10000100 # Address of UART for nexys a7
+	li t5, 0x10000114 # Address of its status register
+           print_\@:
+	lb a3, (\buffer)
+	sb a3, 0(t6)
+           can_print_\@:
+	lw a2, 0(t5)  	# Load UART status register
+	andi a2, a2, 0x20 # Check if it can print
+	beqz a2, can_print_\@ # If not, wait
+	addi \buffer, \buffer, 1	# Move buffer pointer to next digit
+	bne \buffer, t4, print_\@
+#loading back values stored in registers as program is finished executing
+	lw a2, 24(sp)
+	lw a3, 20(sp)
+	lw t5, 16(sp)
+	lw t6, 20(sp)
+	lw t1, 16(sp)
+	lw t4, 12(sp)
+	lw t2, 0(sp)
+	addi sp, sp, 28
+.endm
