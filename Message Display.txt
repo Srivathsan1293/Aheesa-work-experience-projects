@@ -1,0 +1,28 @@
+.macro displaymsg msg
+ #store
+	addi x10, x10, 0
+	addi sp, sp, -16
+	sw a4, 0(sp)
+	sw t3, 4(sp)
+	sw t5, 8(sp)
+	sw t6, 12(sp)
+#program
+	li t6, 0x10000100 #address of UART for nexys a7
+	li t5, 0x10000114 #address of its status register
+            print_characters_\@:
+	lb a4, 0(\msg)
+	beqz a4, exit
+	sb a4, 0(t6)
+	cont_\@:
+	lw t3, 0(t5) 		  # Load UART status register
+	andi t3, t3, 0x20      # Check if it can print
+	beqz t3, cont_\@
+	addi \msg, \msg, 1
+	j print_characters_\@
+#loading    
+	lw a4, 0(sp)
+	lw t3, 4(sp)
+	lw t5, 8(sp)
+	lw t6, 12(sp)
+	addi sp, sp, 16
+.endm
