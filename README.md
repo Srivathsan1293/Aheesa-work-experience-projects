@@ -1,12 +1,8 @@
-This repository contains the source code and supporting material for a 
-series of programming challenges completed during an internship at 
-Aheesa Digital Innovations (June 2024). Each branch corresponds to a 
-challenge described in the internship report.
-
-1. RISCV-Architecture-Notes
-2. Small-Assembly-Programs
-3. Finding-Prime-Numbers
-4. Hash-Maps
-5. Resizing-Images
-6. Polynomial Coefficients
-7. Gradient-Descent (Excel)
+Researched and created a presentation about UAT, or The Universal Approximation
+Theorem. UAT is a pillar stone in Neural Networks which it both explains and is the
+reason for the recent research. As part of the presentation I had to learn what neural
+networks are, how they operate, what are their applications, how they are trained,
+and also explain how different types of neural networks operate. During the research
+for this presentation I was able to use knowledge learnt from previous challenges
+giving me useful background information. Allowing me to explain clearly when
+presenting to the team. 
